@@ -1,10 +1,32 @@
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Navbar from "./components/layout/Nav";
+import Footer from "./components/layout/Footer";
+import Home from "./pages/home/Home";
+import Projects from "./pages/projects/Projects";
+import WhatsAppWidget from "./components/shared/WhatsAppWidget";
+
+function MainLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative min-h-screen bg-secondary text-black">
+      <Navbar />
+      <main className="w-full overflow-hidden">
+        {children}
+      </main>
+      <WhatsAppWidget />
+      <Footer />
+    </div>
+  );
+}
+
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <h1 className="text-4xl font-bold text-blue-600">
-        React + Vite + Tailwind Works!
-      </h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainLayout children={<Home />} />} />
+        <Route path="/projects" element={<MainLayout children={<Projects />} />} />
+        <Route path="/projects/:category" element={<MainLayout children={<Projects />} />} />
+      </Routes>
+    </Router>
   );
 }
 
